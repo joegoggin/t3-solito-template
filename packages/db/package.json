@@ -1,5 +1,6 @@
 {
 	"name": "db",
+	"main": "index.js",
 	"version": "1.0.0",
 	"scripts": {
 		"db:generate": "dotenv -e ../../.env prisma generate",
