@@ -1,9 +1,9 @@
 module.exports = {
-  extends: 'next',
-  settings: {
-    next: {
-      rootDir: 'apps/next/',
-    },
-  },
-  root: true,
-}
+	extends: "next",
+	settings: {
+		next: {
+			rootDir: "apps/next/",
+		},
+	},
+	root: true,
+};

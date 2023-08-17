@@ -26,10 +26,10 @@ Most approaches to using Tailwind in React Native do something like this at runt
 
 ```ts
 const styles = props.className
-  .split(' ')
-  .map((className) => makeStyle(className))
+	.split(" ")
+	.map((className) => makeStyle(className));
 
-return <View style={styles} />
+return <View style={styles} />;
 ```
 
 This means that every component ends up parsing strings to construct predictable style objects.
@@ -64,10 +64,10 @@ In your app's design system, you can start by building your own UI primitives:
 
 ```tsx
 // packages/app/design/typography
-import { Text } from 'react-native'
-import { styled } from 'nativewind'
+import { Text } from "react-native";
+import { styled } from "nativewind";
 
-export const P = styled(Text, 'text-base text-black my-4')
+export const P = styled(Text, "text-base text-black my-4");
 ```
 
 Notice that you can set base styles using the second argument of `styled`.
@@ -84,43 +84,43 @@ Take a look at the [`packages/app/design`](https://github.com/nandorojo/solito/t
 
 ## 📦 Included packages
 
-- `solito` for cross-platform navigation
-- `moti` for animations
-- `nativewind` for theming/design (you can bring your own, too)
-- Expo SDK 48
-- Next.js 13
-- React Navigation 6
+-   `solito` for cross-platform navigation
+-   `moti` for animations
+-   `nativewind` for theming/design (you can bring your own, too)
+-   Expo SDK 48
+-   Next.js 13
+-   React Navigation 6
 
 ## 🗂 Folder layout
 
-- `apps` entry points for each app
+-   `apps` entry points for each app
 
-  - `expo`
-  - `next`
+    -   `expo`
+    -   `next`
 
-- `packages` shared packages across apps
-  - `app` you'll be importing most files from `app/`
-    - `features` (don't use a `screens` folder. organize by feature.)
-    - `provider` (all the providers that wrap the app, and some no-ops for Web.)
-    - `navigation` Next.js has a `pages/` folder. React Native doesn't. This folder contains navigation-related code for RN. You may use it for any navigation code, such as custom links.
-    - `design` your app's design system. organize this as you please.
-      - `typography` (components for all the different text styles)
-      - `layout` (components for layouts)
+-   `packages` shared packages across apps
+    -   `app` you'll be importing most files from `app/`
+        -   `features` (don't use a `screens` folder. organize by feature.)
+        -   `provider` (all the providers that wrap the app, and some no-ops for Web.)
+        -   `navigation` Next.js has a `pages/` folder. React Native doesn't. This folder contains navigation-related code for RN. You may use it for any navigation code, such as custom links.
+        -   `design` your app's design system. organize this as you please.
+            -   `typography` (components for all the different text styles)
+            -   `layout` (components for layouts)
 
 You can add other folders inside of `packages/` if you know what you're doing and have a good reason to.
 
 ## 🏁 Start the app
 
-- Install dependencies: `yarn`
+-   Install dependencies: `yarn`
 
-- Next.js local dev: `yarn web`
-  - Runs `yarn next`
-- Expo local dev:
-  - First, build a dev client onto your device or simulator
-    - `cd apps/expo`
-    - Then, either `expo run:ios`, or `eas build`
-  - After building the dev client, from the root of the monorepo...
-    - `yarn native` (This runs `expo start --dev-client`)
+-   Next.js local dev: `yarn web`
+    -   Runs `yarn next`
+-   Expo local dev:
+    -   First, build a dev client onto your device or simulator
+        -   `cd apps/expo`
+        -   Then, either `expo run:ios`, or `eas build`
+    -   After building the dev client, from the root of the monorepo...
+        -   `yarn native` (This runs `expo start --dev-client`)
 
 ## 🆕 Add new dependencies
 
