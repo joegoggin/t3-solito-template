@@ -1,3 +1,5 @@
+import "isomorphic-fetch";
+
 jest.mock("expo-linking");
 
 jest.mock("react-native-safe-area-context", () => {
