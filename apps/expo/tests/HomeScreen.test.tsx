@@ -1,8 +1,5 @@
 import { render, screen } from "expo-app/tests/test-utils";
-import { serverSetup } from "expo-app/mocks/server";
 import HomeScreen from "app/screens/home/HomeScreen";
-
-serverSetup();
 
 describe("Home Screen", () => {
     test("Home Screen renders properly", async () => {

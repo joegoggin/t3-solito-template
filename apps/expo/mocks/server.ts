@@ -21,14 +21,8 @@ const config = {
 
 const trpcMsw = createTRPCMsw<AppRouter>(config);
 
-const server = setupServer(
+export const server = setupServer(
     trpcMsw.hello.sayHello.query((_, res, ctx) => {
         return res(ctx.status(200), ctx.data("hello from tRPC!"));
     })
 );
-
-export const serverSetup = () => {
-    beforeAll(() => server.listen());
-    afterEach(() => server.resetHandlers());
-    afterAll(() => server.close());
-};

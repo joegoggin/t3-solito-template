@@ -1,4 +1,5 @@
 import "isomorphic-fetch";
+import { server } from "./mocks/server";
 
 jest.mock("expo-linking");
 
@@ -14,3 +15,7 @@ jest.mock("react-native-safe-area-context", () => {
         useSafeAreaInsets: jest.fn().mockImplementation(() => inset),
     };
 });
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());

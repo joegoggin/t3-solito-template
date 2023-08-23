@@ -1,18 +1,32 @@
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { ZodError } from "zod";
 import { initTRPC, TRPCError } from "@trpc/server";
+import { PrismaClient } from "@prisma/client";
 import * as devalue from "devalue";
 
 import prisma from "db";
 
-export const createTRPCContext = (_opts: CreateNextContextOptions) => {
-    const { req, res } = _opts;
+type CreateContextOptions = {
+    prisma?: PrismaClient;
+    token?: string;
+};
 
+export const createInnerTRPContext = (opts?: CreateContextOptions) => {
     return {
-        req,
-        res,
-        prisma,
+        prisma: opts?.prisma ? opts.prisma : prisma,
+        token: opts?.token,
     };
+};
+
+export const createTRPCContext = (opts: CreateNextContextOptions) => {
+    const { req } = opts;
+
+    const token: string | undefined = req.headers.authorization?.split(" ")[1];
+
+    return createInnerTRPContext({
+        token,
+        prisma,
+    });
 };
 
 export const t = initTRPC.context<typeof createTRPCContext>().create({
@@ -36,9 +50,7 @@ export const t = initTRPC.context<typeof createTRPCContext>().create({
 });
 
 const isAuth = t.middleware(({ ctx, next }) => {
-    const { req } = ctx;
-
-    const token = req.headers.authorization?.split(" ")[1];
+    const { token } = ctx;
 
     if (!token)
         throw new TRPCError({
@@ -46,11 +58,7 @@ const isAuth = t.middleware(({ ctx, next }) => {
             message: "Access token is invalid.",
         });
 
-    return next({
-        ctx: {
-            token,
-        },
-    });
+    return next();
 });
 
 export const createTRPCRouter = t.router;
